@@ -1,6 +1,7 @@
 {
   "files": [],
   "compilerOptions": {
+    "preserveSymlinks": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [
