@@ -5,4 +5,7 @@ export const IPC = {
     MINIMIZE: 'frame-events: minimize',
     RESIZE: 'frame-events: minimize',
   },
+  GLOBAL: {
+    VERSION: 'version',
+  },
 } as const
