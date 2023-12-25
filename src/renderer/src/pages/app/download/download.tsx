@@ -2,7 +2,8 @@ import { useTitle } from '@renderer/context/title-context'
 import { HardDriveDownload } from 'lucide-react'
 
 import { DownloadForm } from './download-form'
-import { EmptyDownload } from './empty-download'
+import { TableDownload } from './download-table'
+// import { EmptyDownload } from './empty-download'
 
 export function Download() {
   const { setTitle } = useTitle()
@@ -21,7 +22,9 @@ export function Download() {
 
       <DownloadForm />
 
-      <EmptyDownload />
+      <div className="rounded-md border border-muted">
+        <TableDownload />
+      </div>
     </div>
   )
 }
