@@ -1,8 +1,12 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
 
+import { FRAME_EVENTS } from './frame/frame-events'
+
 // Custom APIs for renderer
-const api = {}
+const api = {
+  frame: FRAME_EVENTS,
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

@@ -1,8 +1,12 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
 
+import { FRAME_EVENTS } from './frame/frame-events'
+
 declare global {
-  interface Window {
+  export interface Window {
     electron: ElectronAPI
-    api: unknown
+    api: {
+      frame: typeof FRAME_EVENTS
+    }
   }
 }

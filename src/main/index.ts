@@ -1,3 +1,5 @@
+import './ipc/frame-events'
+
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, shell } from 'electron'
 import { join } from 'path'
@@ -17,7 +19,6 @@ function createWindow(): void {
       sandbox: false,
     },
     titleBarStyle: 'hidden',
-    titleBarOverlay: true,
   })
 
   mainWindow.on('ready-to-show', () => {
