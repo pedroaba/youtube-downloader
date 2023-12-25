@@ -1,10 +1,12 @@
 import './ipc/frame-events'
+import './ipc/video/video-events'
 
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 
-import icon from '../../resources/icon.png?asset'
+import windowsIcon from '../../resources/gojo-icon.ico?asset'
+import linuxIcon from '../../resources/gojo-icon.png?asset'
 import { IPC } from '../shared/ipc'
 
 function createWindow(): void {
@@ -14,9 +16,12 @@ function createWindow(): void {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    ...(process.platform === 'linux'
+      ? { icon: linuxIcon }
+      : { icon: windowsIcon }),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
+      nodeIntegrationInWorker: true,
       sandbox: false,
     },
     titleBarStyle: 'hidden',
