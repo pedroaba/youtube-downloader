@@ -3,10 +3,10 @@ import { Outlet } from 'react-router-dom'
 
 export function AppLayout() {
   return (
-    <div>
+    <div className="flex min-h-screen w-screen flex-col antialiased">
       <TitleBar />
 
-      <div>
+      <div className="flex flex-1 p-8 pb-2">
         <Outlet />
       </div>
     </div>

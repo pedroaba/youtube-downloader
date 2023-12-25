@@ -22,17 +22,23 @@
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.0",
+    "@hookform/resolvers": "^3.3.2",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "localforage": "^1.10.0",
     "lucide-react": "^0.301.0",
     "match-sorter": "^6.3.1",
+    "next-themes": "^0.2.1",
+    "react-hook-form": "^7.49.2",
     "react-router-dom": "^6.21.1",
+    "sonner": "^1.2.4",
     "sort-by": "^1.2.0",
     "tailwind-merge": "^2.2.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^1.0.1",

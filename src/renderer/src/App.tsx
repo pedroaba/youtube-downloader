@@ -1,3 +1,4 @@
+import { Toaster } from '@renderer/components/ui/sonner'
 import { RouterProvider } from 'react-router-dom'
 
 import { ThemeProvider } from './components/theme/theme-provider'
@@ -10,6 +11,14 @@ export function App() {
       <ThemeProvider storageKey="yt-download-theme">
         {/* @ts-ignore router is Router, but because https://typescript.tv/errors/#TS2742, is assigned as unknown */}
         <RouterProvider router={router} />
+
+        <Toaster
+          closeButton
+          loadingIcon
+          position="bottom-left"
+          expand={false}
+          visibleToasts={2}
+        />
       </ThemeProvider>
     </TitleContextProvider>
   )
