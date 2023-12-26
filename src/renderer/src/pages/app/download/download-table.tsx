@@ -14,7 +14,12 @@ import { DownloadTableButtons } from './download-table-buttons'
 import { EmptyDownload } from './empty-download'
 
 export function TableDownload() {
-  const { videos, removeVideoFromList } = useStore()
+  const { videosInDownload: videos, removeVideoFromList } = useStore(
+    ({ videosInDownload, removeVideoFromList }) => ({
+      videosInDownload,
+      removeVideoFromList,
+    }),
+  )
 
   if (videos.length === 0) {
     return <EmptyDownload />

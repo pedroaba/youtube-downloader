@@ -25,7 +25,9 @@ export function DownloadForm() {
     resolver: zodResolver(videoDownloadSchema),
   })
 
-  const { insertVideoInfo } = useStore()
+  const { insertVideoInfo } = useStore(({ insertVideoInfo }) => ({
+    insertVideoInfo,
+  }))
 
   async function handleVideoDownload(data: VideoDownloadForm) {
     try {
