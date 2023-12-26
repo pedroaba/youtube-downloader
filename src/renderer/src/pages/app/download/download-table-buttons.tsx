@@ -20,10 +20,7 @@ export function DownloadTableButtons({
   onOpenFolderClick = async () => {},
 }: DownloadTableButtonsProps) {
   return (
-    <TableCell
-      className="flex justify-end space-x-2 transition-all duration-700"
-      align="right"
-    >
+    <TableCell className="transition-all duration-700">
       <div className="flex justify-end space-x-2 max-md:hidden">
         <Tooltip message="Abrir na pasta">
           <Button

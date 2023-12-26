@@ -3,23 +3,9 @@ import { Minus, MonitorPlay, Square, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { ToggleTheme } from '../theme/theme-toggle'
-// import { useState } from 'react'
 import { TitleBarButton } from './title-bar-button'
 
-// type MaximizeParamsType = {
-//   isMaximized: boolean
-// }
-
 export function TitleBar() {
-  // const [isMaximized, setMaximizedWindow] = useState<boolean>(false)
-
-  // window.electron.ipcRenderer.on(
-  //   'frame-events: maximize',
-  //   (_, { isMaximized: maximized }: MaximizeParamsType) => {
-  //     setMaximizedWindow(maximized)
-  //   },
-  // )
-
   const [version, setVersion] = useState<string>('')
   const { title } = useTitle()
 

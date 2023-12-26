@@ -2,6 +2,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@renderer/components/ui/button'
 import { Input } from '@renderer/components/ui/input'
 import { Label } from '@renderer/components/ui/label'
+import { useStore } from '@renderer/store'
+import { RotateCw } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import colors from 'tailwindcss/colors'
@@ -17,14 +19,33 @@ export function DownloadForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { isSubmitting },
   } = useForm<VideoDownloadForm>({
     resolver: zodResolver(videoDownloadSchema),
   })
 
+  const { insertVideoInfo } = useStore()
+
   async function handleVideoDownload(data: VideoDownloadForm) {
     try {
-      console.log(data)
+      const videoInfo = await window.electron.ipcRenderer.invoke(
+        'video: get-info',
+        data,
+      )
+
+      const status = insertVideoInfo(videoInfo)
+
+      if (status === 'duplicated') {
+        toast.warning('Video já existente', {
+          description: `O video ${videoInfo.videoDetails.title
+            .slice(0, 13)
+            .concat('...')} já está adicionado na lista de downloads`,
+        })
+
+        reset()
+        return
+      }
 
       toast.success("Video: 'Nome do video'", {
         action: {
@@ -38,6 +59,7 @@ export function DownloadForm() {
         description: 'Download feito com sucesso!',
         descriptionClassName: 'text-sm text-zinc-500 dark:text-zinc-600',
       })
+      reset()
     } catch {
       toast.error("Video: 'Nome do video'", {
         action: {
@@ -72,10 +94,14 @@ export function DownloadForm() {
       <Button
         type="submit"
         className="ml-4 h-10"
-        variant="ghost"
+        variant={isSubmitting ? 'outline' : 'ghost'}
         disabled={isSubmitting}
       >
-        Baixar
+        {isSubmitting ? (
+          <RotateCw className="h-4 w-4 animate-spin" />
+        ) : (
+          'Baixar'
+        )}
       </Button>
     </form>
   )

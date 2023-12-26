@@ -1,9 +1,9 @@
-import { Readable } from 'node:stream'
-
-import ytdl from 'ytdl-core'
+import ytdl, { type videoInfo } from 'ytdl-core'
 
 export class VideoDownloader {
-  async downloadVideoByUrl(url): Promise<Readable> {
-    return ytdl(url)
+  async downloadVideoByUrl(url: string) {}
+
+  static async getVideoInfo(url: string): Promise<videoInfo> {
+    return ytdl.getInfo(url)
   }
 }

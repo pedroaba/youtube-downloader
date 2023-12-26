@@ -8,4 +8,7 @@ export const IPC = {
   GLOBAL: {
     VERSION: 'version',
   },
+  VIDEO: {
+    GET_INFO: 'video: get-info',
+  },
 } as const
