@@ -10,5 +10,9 @@ export const IPC = {
   },
   VIDEO: {
     GET_INFO: 'video: get-info',
+    DOWNLOAD: {
+      FINISHED: 'video: download-finished',
+      START: 'video: download-video',
+    },
   },
 } as const

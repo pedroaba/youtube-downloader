@@ -25,8 +25,8 @@ export function DownloadForm() {
     resolver: zodResolver(videoDownloadSchema),
   })
 
-  const { insertVideoInfo } = useStore(({ insertVideoInfo }) => ({
-    insertVideoInfo,
+  const { downloadVideo } = useStore(({ downloadVideo }) => ({
+    downloadVideo,
   }))
 
   async function handleVideoDownload(data: VideoDownloadForm) {
@@ -36,7 +36,7 @@ export function DownloadForm() {
         data,
       )
 
-      const status = insertVideoInfo(videoInfo)
+      const status = downloadVideo(videoInfo)
 
       if (status === 'duplicated') {
         toast.warning('Video já existente', {

@@ -1,16 +1,13 @@
-import { ProgressBar } from '@renderer/components/progress-bar'
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from '@renderer/components/ui/table'
 import { useStore } from '@renderer/store'
-import { formatVideoDuration } from '@renderer/utils/formatters/video-duration'
 
-import { DownloadTableButtons } from './download-table-buttons'
+import { DownloadTableRow } from './download-table-row'
 import { EmptyDownload } from './empty-download'
 
 export function TableDownload() {
@@ -43,27 +40,15 @@ export function TableDownload() {
             const { videoDetails: video } = youtubeVideo
 
             return (
-              <TableRow key={video.videoId}>
-                <TableCell>{video.videoId}</TableCell>
-                <TableCell>{video.title}</TableCell>
-                <TableCell>
-                  <ProgressBar progress={80} total={100} />
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-2 w-2 animate-pulse rounded-full bg-green-800" />
-                    <span>Downloading</span>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  {formatVideoDuration(Number(video.lengthSeconds))}
-                </TableCell>
-                <DownloadTableButtons
-                  onDeleteFileClick={async () =>
-                    removeVideoFromList(video.videoId)
-                  }
-                />
-              </TableRow>
+              <DownloadTableRow
+                key={video.videoId}
+                video={youtubeVideo}
+                onDeleteFileClick={async () =>
+                  removeVideoFromList(video.videoId)
+                }
+                onConvertMP3Click={async () => {}}
+                onOpenFolderClick={async () => {}}
+              />
             )
           })}
           {/* <TableRow>

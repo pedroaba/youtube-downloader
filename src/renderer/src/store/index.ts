@@ -1,20 +1,20 @@
 import type { Video } from '@renderer/store/@types/video'
 import { create } from 'zustand'
 
-interface VideoInDownload extends Video {
+export interface VideoInDownload extends Video {
   downloadProgress: number
   status: 'in queue' | 'in progress' | 'finished' | 'cancelled'
 }
 
-interface VideoDownload {
+export interface VideoDownloadStore {
   videos: Video[]
   videosInDownload: VideoInDownload[]
   insertVideoInfo: (video: Video) => 'success' | 'duplicated'
   removeVideoFromList: (videoId: string) => void
-  downloadVideo: (video: Video) => void
+  downloadVideo: (video: Video) => 'success' | 'duplicated'
 }
 
-export const useStore = create<VideoDownload>((set, get) => {
+export const useStore = create<VideoDownloadStore>((set, get) => {
   return {
     videos: [],
     videosInDownload: [],
@@ -45,6 +45,40 @@ export const useStore = create<VideoDownload>((set, get) => {
       })
     },
 
-    downloadVideo: (_video: Video) => {},
+    downloadVideo: (video: Video) => {
+      const { videosInDownload } = get()
+      const hasVideoInDownload =
+        videosInDownload.length > 0 &&
+        videosInDownload.some((v) => v.status === 'in progress')
+
+      const doesVideoAlreadyAdded = videosInDownload.some(
+        (v) => v.videoDetails.videoId === video.videoDetails.videoId,
+      )
+
+      if (doesVideoAlreadyAdded) {
+        return 'duplicated'
+      }
+
+      if (hasVideoInDownload) {
+        set({
+          videosInDownload: [
+            ...videosInDownload,
+            { status: 'in queue', downloadProgress: 0, ...video },
+          ],
+        })
+      } else {
+        set({
+          videosInDownload: [
+            { status: 'in progress', downloadProgress: 0, ...video },
+          ],
+        })
+
+        window.api.videoActions.downloadAVideoByUrl(
+          video.videoDetails.video_url,
+        )
+      }
+
+      return 'success'
+    },
   }
 })

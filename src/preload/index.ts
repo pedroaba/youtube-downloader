@@ -2,10 +2,12 @@ import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge } from 'electron'
 
 import { FRAME_EVENTS } from './frame/frame-events'
+import { VIDEO_EVENTS } from './video/video-events'
 
 // Custom APIs for renderer
 const api = {
   frame: FRAME_EVENTS,
+  videoActions: VIDEO_EVENTS,
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
