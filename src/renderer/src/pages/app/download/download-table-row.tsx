@@ -3,6 +3,8 @@ import { TableCell, TableRow } from '@renderer/components/ui/table'
 import { VideoInDownload } from '@renderer/store'
 import { formatVideoDuration } from '@renderer/utils/formatters/video-duration'
 import clsx from 'clsx'
+import { IpcRendererEvent } from 'electron'
+import { useState } from 'react'
 
 import { DownloadTableButtons } from './download-table-buttons'
 
@@ -13,20 +15,35 @@ interface DownloadTableRowProps {
   onConvertMP3Click?: () => Promise<void>
 }
 
+export type VideoProgressEvent = {
+  progress: number
+  videoId: string
+}
+
 export function DownloadTableRow({
   video: youtubeVideo,
   onConvertMP3Click = async () => {},
   onDeleteFileClick = async (_videoId: string) => {},
   onOpenFolderClick = async () => {},
 }: DownloadTableRowProps) {
-  const { videoDetails: video, downloadProgress, status } = youtubeVideo
+  const [videoProgress, setDownloadVideoProgress] = useState(0)
+  const { videoDetails: video, status } = youtubeVideo
+
+  window.electron.ipcRenderer.on(
+    'video: download-progress',
+    (_: IpcRendererEvent, { progress, videoId }: VideoProgressEvent) => {
+      if (videoId === video.videoId) {
+        setDownloadVideoProgress(Number(progress))
+      }
+    },
+  )
 
   return (
     <TableRow key={video.videoId}>
       <TableCell>{video.videoId}</TableCell>
       <TableCell>{video.title}</TableCell>
       <TableCell>
-        <ProgressBar progress={downloadProgress} total={100} />
+        <ProgressBar progress={videoProgress} />
       </TableCell>
       <TableCell>
         <div className="flex items-center gap-2">

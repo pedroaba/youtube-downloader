@@ -12,6 +12,7 @@ export const IPC = {
     GET_INFO: 'video: get-info',
     DOWNLOAD: {
       FINISHED: 'video: download-finished',
+      PROGRESS: 'video: download-progress',
       START: 'video: download-video',
     },
   },

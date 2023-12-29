@@ -9,6 +9,7 @@ interface VideoGetInfoHandlerArgs {
 
 interface VideoDownloadOnArgs {
   videoUrl: string
+  filename: string
 }
 
 ipcMain.handle(
@@ -20,8 +21,9 @@ ipcMain.handle(
 
 ipcMain.on(
   IPC.VIDEO.DOWNLOAD.START,
-  async (_event: IpcMainEvent, { videoUrl }: VideoDownloadOnArgs) => {
-    const filepath = await VideoDownloader.downloadVideoByUrl(videoUrl)
+  async (_event: IpcMainEvent, { videoUrl, filename }: VideoDownloadOnArgs) => {
+    const videoController = new VideoDownloader(_event)
+    const filepath = videoController.downloadVideoByUrl(videoUrl, filename)
 
     ipcMain.emit(IPC.VIDEO.DOWNLOAD.FINISHED, { filepath })
   },

@@ -38,10 +38,13 @@ export const useStore = create<VideoDownloadStore>((set, get) => {
     },
 
     removeVideoFromList: (videoId: string) => {
-      const { videos } = get()
+      const { videos, videosInDownload } = get()
 
       set({
         videos: videos.filter((v) => v.videoDetails.videoId !== videoId),
+        videosInDownload: videosInDownload.filter(
+          (v) => v.videoDetails.videoId !== videoId,
+        ),
       })
     },
 
@@ -75,6 +78,7 @@ export const useStore = create<VideoDownloadStore>((set, get) => {
 
         window.api.videoActions.downloadAVideoByUrl(
           video.videoDetails.video_url,
+          video.videoDetails.title,
         )
       }
 

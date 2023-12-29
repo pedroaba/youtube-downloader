@@ -2,12 +2,11 @@ import { Tooltip } from './tooltip'
 
 interface ProgressBarProps {
   progress: number
-  total: number
 }
 
-export function ProgressBar({ progress, total }: ProgressBarProps) {
-  const progressInPercentage = (progress * total) / 100
-
+export function ProgressBar({
+  progress: progressInPercentage,
+}: ProgressBarProps) {
   return (
     <Tooltip
       message={`O progresso está em ${progressInPercentage.toFixed(2)}%`}

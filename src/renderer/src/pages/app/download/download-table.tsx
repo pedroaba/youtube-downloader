@@ -51,40 +51,6 @@ export function TableDownload() {
               />
             )
           })}
-          {/* <TableRow>
-          <TableCell>34kl23bn35kl</TableCell>
-          <TableCell className="">
-            Netolab Provando Sabores de sorvete
-          </TableCell>
-          <TableCell>
-            <ProgressBar progress={80} total={100} />
-          </TableCell>
-          <TableCell>
-            <div className="flex items-center gap-2">
-              <span className="flex h-2 w-2 animate-pulse rounded-full bg-green-800" />
-              <span>Downloading</span>
-            </div>
-          </TableCell>
-          <TableCell>-</TableCell>
-          <DownloadTableButtons />
-        </TableRow>
-        <TableRow>
-          <TableCell>1k24bn12l</TableCell>
-          <TableCell className="">
-            Netolab Provando Sabores de sorvete
-          </TableCell>
-          <TableCell>
-            <ProgressBar progress={100} total={100} />
-          </TableCell>
-          <TableCell>
-            <div className="flex items-center gap-2">
-              <span className="flex h-2 w-2 rounded-full bg-green-700 dark:bg-green-900" />
-              <span>Pronto</span>
-            </div>
-          </TableCell>
-          <TableCell>100 MB</TableCell>
-          <DownloadTableButtons />
-        </TableRow> */}
         </TableBody>
       </Table>
     </div>
