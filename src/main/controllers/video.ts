@@ -17,13 +17,14 @@ export class VideoDownloader {
 
   static formatFileName(filename: string) {
     return filename
-      .replaceAll('|', '')
+      .replace(/\|/g, '')
       .replace(/\s+/g, '-')
       .replace(/--+/g, '-')
       .normalize('NFKD')
   }
 
   async downloadVideoByUrl(url: string, filename: string) {
+    this.event.sender.setMaxListeners(0) // set infinity listeners
     const downloadFolderPath = path.join(
       app.getPath('documents'),
       'YoutubeVideoDownloader',
@@ -34,8 +35,9 @@ export class VideoDownloader {
     }
 
     const videoInfo = await VideoDownloader.getVideoInfo(url)
+    console.log(videoInfo.formats)
     const format = videoInfo.formats
-      .filter((f) => f.hasVideo)
+      .filter((f) => f.hasAudio && f.container === 'mp4')
       .sort((a, b) => {
         if (Number(a.contentLength) > Number(b.contentLength)) {
           return -1
@@ -80,6 +82,10 @@ export class VideoDownloader {
       setTimeout(() => {
         this.event.sender.send(IPC.VIDEO.DOWNLOAD.PROGRESS, {
           progress: 100,
+          videoId: videoInfo.videoDetails.videoId,
+        })
+
+        this.event.sender.send(IPC.VIDEO.DOWNLOAD.FINISHED, {
           videoId: videoInfo.videoDetails.videoId,
         })
       }, 1000)

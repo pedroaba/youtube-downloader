@@ -38,6 +38,14 @@ export function DownloadTableRow({
     },
   )
 
+  window.electron.ipcRenderer.on(
+    'video: download-finished',
+    (
+      _: IpcRendererEvent,
+      { videoId }: Omit<VideoProgressEvent, 'progress'>,
+    ) => {},
+  )
+
   return (
     <TableRow key={video.videoId}>
       <TableCell>{video.videoId}</TableCell>
